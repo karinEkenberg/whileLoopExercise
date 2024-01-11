@@ -5,6 +5,8 @@ Välj ett av följande alternativ.
 2. Omvandla kilometer till meter
 3. Avsluta programmet
  */
+using System.Diagnostics.Metrics;
+
 namespace whileLoopExercise
 {
     internal class Program
@@ -14,43 +16,23 @@ namespace whileLoopExercise
             bool myBool = true;
             while (myBool)
             {
-                Console.WriteLine("Welcome! Transform from meters to kilometers and vice versa:");
-                Console.WriteLine("[1] - Meters to kilometers.");
-                Console.WriteLine("[2] - Kilometers to meters.");
-                Console.WriteLine("[3] - Exit program.");
-                double meters, kilometers, result;
+                LoopyLoop.Meny();
                 double.TryParse(Console.ReadLine(), out double input);
                 if (input == 1)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Enter amount of meters to transform into kilometers:");
-                    if (double.TryParse(Console.ReadLine(),out meters))
-                    {
-                        result = meters / 1000;
-                        Console.WriteLine($"{meters} meters is {result} kilometers.");
-                    }
-                    else { LoopyLoop.ErrorMessage("Wrong input.."); continue; }
+                    LoopyLoop.MToKm(); continue;
                 }
                 else if (input == 2)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Enter amount of kilometers to transform into meters:");
-                    if (double.TryParse(Console.ReadLine(), out kilometers))
-                    {
-                        result = kilometers * 1000;
-                        Console.WriteLine($"{kilometers} kilometers is {result} meters.");
-                    }
-                    else { LoopyLoop.ErrorMessage("Wrong input.."); continue; }
+                   LoopyLoop.KmToM(); continue;
                 }
                 else if (input == 3)
                 {
-                    LoopyLoop.Exit();
-                    break;
+                    LoopyLoop.Exit(); break;
                 }
                 else 
                 {
-                    LoopyLoop.ErrorMessage("Wrong input..");
-                    continue; 
+                    LoopyLoop.ErrorMessage("Wrong input.."); continue;
                 }
             }
         }
@@ -71,6 +53,40 @@ namespace whileLoopExercise
                 Console.WriteLine(message);
                 Console.ResetColor();
                 Thread.Sleep(2000);
+            }
+
+            public static void MToKm()
+            {
+                double meters, result;
+                Console.Clear();
+                Console.WriteLine("Enter amount of meters to transform into kilometers:");
+                if (double.TryParse(Console.ReadLine(), out meters))
+                {
+                    result = meters / 1000;
+                    Console.WriteLine($"{meters} meters is {result} kilometers.");
+                }
+                else { LoopyLoop.ErrorMessage("Wrong input.."); }
+            }
+
+            public static void KmToM()
+            {
+                double kilometers, result;
+                Console.Clear();
+                Console.WriteLine("Enter amount of kilometers to transform into meters:");
+                if (double.TryParse(Console.ReadLine(), out kilometers))
+                {
+                    result = kilometers * 1000;
+                    Console.WriteLine($"{kilometers} kilometers is {result} meters.");
+                }
+                else { LoopyLoop.ErrorMessage("Wrong input.."); }
+            }
+
+            public static void Meny()
+            {
+                Console.WriteLine("Welcome! Transform from meters to kilometers and vice versa:");
+                Console.WriteLine("[1] - Meters to kilometers.");
+                Console.WriteLine("[2] - Kilometers to meters.");
+                Console.WriteLine("[3] - Exit program.");
             }
         }
     }
